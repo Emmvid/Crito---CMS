@@ -12,17 +12,7 @@
     var selection = Model.Root().Children.Where(x => x.IsVisible(PublishedValueFallback)).ToArray(); 
 }
 
-@if (selection?.Length > 0)
-{
-    <ul>
-        @foreach (var item in selection)
-        {
-            <li class="@(item.IsAncestorOrSelf(Model) ? "current" : null)">
-                <a href="@item.Url(PublishedUrlProvider)">@item.Name</a>
-            </li>
-        }
-    </ul>
-}
+
 
  <nav class="navbar navbar-expand-md">
         <div class="container">
@@ -49,23 +39,26 @@
               <li><i class="fa fa-linkedin" aria-hidden="true"></i></li>
               <li><i class="fa fa-instagram" aria-hidden="true"></i></li>
             </ul>
-            <ul class="navbar-nav">
-              <li class="nav-item active">
-                <a class="nav-link" href="@site.Url()">@site.Name</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Service</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="news.html">News</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Contact</a>
-              </li>
+            
+                  <ul class="navbar-nav">
+            <li class="nav-item" href="@site.Url()"> @site.Name</li>
+              @if (selection?.Length > 0)
+{
+
+        
+        @foreach (var item in selection)
+        {
+            <li class="@(item.IsAncestorOrSelf(Model) ? "current" : null) nav-item">
+                <a class="nav-link" href="@item.Url(PublishedUrlProvider)">@item.Name</a>
+            </li>
+        }
+  
+}
+  </ul>
               <button type="button" class="btn btn-custom">
                 Login <i class="fa fa-arrow-right" aria-hidden="true"></i>
               </button>
-            </ul>
+           
           </div>
         </div>
       </nav>
