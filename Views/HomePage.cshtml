@@ -5,3 +5,14 @@
 	Layout = "LayoutWithShowcase.cshtml";
 }
 @await Html.PartialAsync("_BrandSection")
+
+<article class="features">
+        <div class="div2">
+          <p class="text-warning">@Model.Value("serviceFeaturesSectionTitle")</p>
+          <h2>@Model.Value("serviceFeaturesHeading")</h2>
+          <button type="button"href="@Model.Value("serviceFeaturesButtonUrl")" class="btn btn-features">
+            @Model.Value("serviceFeaturesButtonText")<i class="fa fa-arrow-up" aria-hidden="true"></i>
+          </button>
+        </div>
+       
+      </article>
