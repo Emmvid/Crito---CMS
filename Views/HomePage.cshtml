@@ -6,7 +6,7 @@
 }
 @await Html.PartialAsync("_BrandSection")
 
-<article class="features">
+    <article class="features">
         <div class="div2">
           <p class="text-warning">@Model.Value("serviceFeaturesSectionTitle")</p>
           <h2>@Model.Value("serviceFeaturesHeading")</h2>
@@ -17,4 +17,18 @@
        
        @Html.GetBlockListHtml(Model.ServiceFeatures) 
        
-      </article>
+    </article>
+      
+    <section class="services">
+        <div class="heading">
+          <p class="text-warning">@Model.Value("ourServicesSectionTitle")</p>
+          <h2>
+           @Model.Value("ourServicesSectionHeading")
+          </h2>
+        </div>
+        <div class="cards">
+          
+           @Html.GetBlockListHtml(Model.OurServices) 
+        
+        </div>
+    </section>
