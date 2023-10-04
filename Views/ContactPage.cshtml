@@ -2,7 +2,9 @@
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.ContactPage>
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
 @{
-	Layout = "LayoutWithBreadcrumb.cshtml";
+    Layout = "LayoutWithBreadcrumb.cshtml";
+
+    var contactForm = new Crito.Models.ContactForm();
 }
 
  <section class="contact-cards">
@@ -26,25 +28,28 @@
     
     <div class="message-form">
         <h2 class="heading"> Leave us a message</h2>
-        <form asp-controller="" asp-action="" method="post" noValidate class="message-form">
- 
-        <div asp-validation-summary="ModelOnly"></div>
-          <label for="name" ></label>
-            <input asp-for=""type="text" class="form-control" id="name" placeholder="Your Name*"/>
-            <label for="email"></label>
+        @using(Html.BeginUmbracoForm("Index", "Contact", FormMethod.Post)) {
 
-            <input asp-for="" type="email" class="form-control" id="email" placeholder="Email*" />
-            <label for="message"></label>
+ 
+        <div asp-validation-summary="All"></div>
             
+            <label for="name" ></label>
+            <input asp-for="@contactForm.Name"type="text" class="form-control" id="name" placeholder="Your Name*"/>
+            
+            <label for="email"></label>
+            <input asp-for="@contactForm.Email" type="email" class="form-control" id="email" placeholder="Email*" />
+            
+            <label for="message"></label>
             <div>
-            <textarea asp-for="" type="text" placeholder="Write your message here" class="form-control" id="message" rows="5"></textarea>
+                <textarea asp-for="@contactForm.Message" type="text" placeholder="Write your message here" class="form-control" id="message" rows="5"></textarea>
             </div>
 
             <div>
-            <button type="submit" class="btn btn-features">Send</button>
+                <button type="submit" class="btn btn-features">Send</button>
             </div>
       
-        </form>
+        
+        }
     </div>
     @await Html.PartialAsync("_Map")
     
