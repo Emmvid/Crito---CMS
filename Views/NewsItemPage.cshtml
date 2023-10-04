@@ -1,6 +1,34 @@
 ﻿@using Umbraco.Cms.Web.Common.PublishedModels;
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.NewsItemPage>
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Services;
+@inject IUserService Userservice
 @{
 	Layout = "LayoutWithBreadcrumb.cshtml";
+    var userService = Userservice;
+    var image = Model.Value<IPublishedContent>("newsImage");
 }
+
+  <div class="main-content">
+      <article class="article">
+        <h2>@Model.Name</h2>
+        <small>
+          @Model.CreateDate.ToString("MMM dd, yyyy")
+          <i class="fa-solid fa-circle fa-2xs" style="color: #f9d783"></i>
+            @Model.Value("newsCategory")
+          <i class="fa-solid fa-circle fa-2xs" style="color: #f9d783"></i>
+          @Model.CreatorName(Userservice)
+        </small>
+        <image
+          src="@image.Url()"
+          alt="how_to_use_digitalization"
+          class="article-image"
+        ></image>
+        <p>
+         @Model.Value("newsContent")</p>
+        <div class="tags"> 
+        @foreach(var tag in Model.Value<IEnumerable<string>>("newsTags")){
+        <span> @tag / </span>
+        }
+        
+        </div>

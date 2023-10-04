@@ -1,0 +1,50 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.ContactPage>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "LayoutWithBreadcrumb.cshtml";
+}
+
+ <section class="contact-cards">
+      <div class="contact-card">
+        <i class="fa fa-map-marker" aria-hidden="true"></i>
+        <h4>Visit us</h4>
+        <address><p>@Model.Value("contactInformationStreetName") <br> @Model.Value("contactInformationPostalCode") <br> @Model.Value("contactInformationCity")</p></address>
+      </div>
+      <div class="contact-card">
+        <i class="fa fa-phone" aria-hidden="true"></i>
+        <h4>Call us</h4>
+        <p>@Model.Value("contactInformationPhone1") <br> @Model.Value("contactInformationPhone2")</p>
+      </div>
+      <div class="contact-card">
+        <i class="fa fa-envelope" aria-hidden="true"></i>
+        <h4>Email us</h4>
+        <p>@Model.Value("contactInformationEmail1") @Model.Value("contactInformationEmail2") </p>
+      </div>
+    </section>
+    
+    
+    <div class="message-form">
+        <h2 class="heading"> Leave us a message</h2>
+        <form asp-controller="" asp-action="" method="post" noValidate class="message-form">
+ 
+        <div asp-validation-summary="ModelOnly"></div>
+          <label for="name" ></label>
+            <input asp-for=""type="text" class="form-control" id="name" placeholder="Your Name*"/>
+            <label for="email"></label>
+
+            <input asp-for="" type="email" class="form-control" id="email" placeholder="Email*" />
+            <label for="message"></label>
+            
+            <div>
+            <textarea asp-for="" type="text" placeholder="Write your message here" class="form-control" id="message" rows="5"></textarea>
+            </div>
+
+            <div>
+            <button type="submit" class="btn btn-features">Send</button>
+            </div>
+      
+        </form>
+    </div>
+    @await Html.PartialAsync("_Map")
+    
