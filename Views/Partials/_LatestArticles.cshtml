@@ -1,0 +1,87 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.HomePage>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models.PublishedContent;
+@{
+   
+    var itemsPerPage = 3;
+    var pageNumber = 1;
+
+    if (!int.TryParse(Context.Request.Query["page"], out pageNumber))
+    {
+        pageNumber = 1;
+    }
+
+    var selection = Umbraco?.Content(Guid.Parse("18ba41a6-d9d7-4e7a-b8ca-15626dd86dd8"))?
+      .ChildrenOfType("newsItemPage")?
+      .Where(x => x.IsVisible())
+      .OrderByDescending(x => x.CreateDate).ToList();
+
+
+
+    var totalItems = selection?.Count ?? 0;
+    var pagedItems = selection.Skip((pageNumber - 1) * itemsPerPage).Take(itemsPerPage);
+
+}
+<section class="news">
+    <div class="article-heading">
+        <div>
+        <p class="text-warning">Article & News</p>
+        <h3>Get every single Article and News</h3>
+        </div>
+        <a type="button" href="/news" class="btn btn-readmore">Read more</a>
+    </div>
+    <div class="news-cards">
+        @if (pagedItems != null){
+	        foreach (var item in pagedItems!)
+	        {
+	            var category = item.Value("newsCategory");
+	            var url = item.Url();
+	            var image = item.Value<IPublishedContent>("newsImage");
+                var title = item.Name();
+                var preamble = item.Value("newsPreamble");
+
+		        <a href="@url">
+                  <img class="img-fluid" src="@image?.Url()" alt="how_to_use_digitalization"/>
+                  <p>@category</p>
+                  <h4>@title</h4>
+                  <p>@preamble</p>
+                </a>
+	         }
+           }
+
+        <nav aria-label="navigation" class="pagination">
+            <ul class="pagination">
+            @if(pageNumber > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="?page=@(pageNumber-1)" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </li>
+            }
+            @for(int i= 1; i <= Math.Ceiling((decimal)totalItems / itemsPerPage); i++)
+            {
+                if( i == pageNumber)
+                {
+                    <li class="page-item"><a class="page-link" href="#">@i</a></li>
+                }
+                else
+                {
+                    <li class="page-item"><a class="page-link" href="?page=@i">@i</a></li>
+                }
+            }
+            @if(pageNumber < Math.Ceiling((decimal) totalItems / itemsPerPage)){
+                <li class="page-item">
+                    <a class="page-link" href="?page=@(pageNumber+1)" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
+            }
+           
+            </ul>
+        </nav>
+    </div>
+</section>

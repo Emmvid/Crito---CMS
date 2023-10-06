@@ -1,0 +1,46 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.HomePage>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "LayoutWithShowcase.cshtml";
+}
+@await Html.PartialAsync("_BrandSection")
+
+    <article class="features">
+        <div class="div2">
+          <p class="text-warning">@Model.Value("serviceFeaturesSectionTitle")</p>
+          <h2>@Model.Value("serviceFeaturesHeading")</h2>
+          <button type="button"href="@Model.Value("serviceFeaturesButtonUrl")" class="btn btn-features">
+            @Model.Value("serviceFeaturesButtonText")<i class="fa fa-arrow-up" aria-hidden="true"></i>
+          </button>
+        </div>
+       
+       @Html.GetBlockListHtml(Model.ServiceFeatures) 
+       
+    </article>
+      @await Html.PartialAsync("_AboutCompany")
+    <section class="services">
+        <div class="heading">
+          <p class="text-warning">@Model.Value("ourServicesSectionTitle")</p>
+          <h2>
+           @Model.Value("ourServicesSectionHeading")
+          </h2>
+        </div>
+        <div class="cards">
+           @Html.GetBlockListHtml(Model.OurServices) 
+        </div>
+    </section>
+
+    @await Html.PartialAsync("_WhyChooseUs")
+    @await Html.PartialAsync("_GlobalProjects")
+    @await Html.PartialAsync("_Team")
+    @await Html.PartialAsync("_LatestArticles")
+
+    <section class="contact">
+        <h4>Get news updates by signing up</h4>
+        <form action="post">
+          <label for="email"></label>
+          <input class="form-control"  type="text" placeholder="Enter Email" name="email" required />
+          <button type="submit" class="btn btn-custom">Sign Up</button>
+        </form>
+    </section>

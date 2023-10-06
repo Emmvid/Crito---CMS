@@ -1,17 +1,25 @@
-﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
-<div class="hero">
+﻿@using Umbraco.Cms.Core.Models;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+    <section class="hero">
         <div>
-          <h1>We provide The Best Business Solutions</h1>
+          <h1>@Model.Value("showcaseTitle")</h1>
           <p>
-            Establish your vision and value proposition and turn them into
-            testable prototypes.
+            @Model.Value("showcaseDescription")
           </p>
-          <button type="button" class="btn btn-custom">
-            Get Consulting <i class="fa fa-arrow-up" aria-hidden="true"></i>
-          </button>
-          <button type="button" class="btn btn-outline-dark">
-            Learn More <i class="fa fa-arrow-up" aria-hidden="true"></i>
-          </button>
+          <a href="@Model.Value("showcaseButtonURL")" class="btn btn-custom">
+            @Model.Value("showcaseButtonText") <i class="fa fa-arrow-up" aria-hidden="true"></i>
+          </a>
+          <a  href="/service"  class="btn btn-outline-dark">
+            Learn more <i class="fa fa-arrow-up" aria-hidden="true"></i>
+          </a>
         </div>
-        <img class="hero-img" src="images/hero.png" alt="home-image" />
-      </div>
+        @{
+        var showcaseImage = Model.Value<MediaWithCrops>("showcaseImage");
+        if(showcaseImage != null)
+        {
+            <img class="hero-img" src="@showcaseImage.MediaUrl()" alt="@Model.Value("showcaseTitle")" />
+        }
+
+        }
+       
+    </section>
