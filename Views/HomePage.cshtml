@@ -35,3 +35,18 @@
 @await Html.PartialAsync("_WhyChooseUs")
 @await Html.PartialAsync("_GlobalProjects")
 @await Html.PartialAsync("_Team")
+@await Html.PartialAsync("_LatestArticles")
+   <section class="contact">
+        <h4>Get news updates by signing up</h4>
+        <form action="post">
+          <label for="email"></label>
+          <input
+            class="form-control"
+            type="text"
+            placeholder="Enter Email"
+            name="email"
+            required
+          />
+          <button type="submit" class="btn btn-custom">Sign Up</button>
+        </form>
+      </section>
