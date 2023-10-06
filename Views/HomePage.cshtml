@@ -18,7 +18,7 @@
        @Html.GetBlockListHtml(Model.ServiceFeatures) 
        
     </article>
-      
+      @await Html.PartialAsync("_AboutCompany")
     <section class="services">
         <div class="heading">
           <p class="text-warning">@Model.Value("ourServicesSectionTitle")</p>
@@ -32,3 +32,6 @@
         
         </div>
     </section>
+@await Html.PartialAsync("_WhyChooseUs")
+@await Html.PartialAsync("_GlobalProjects")
+@await Html.PartialAsync("_Team")

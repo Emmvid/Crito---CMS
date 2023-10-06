@@ -1,0 +1,67 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+
+      <section class="news">
+        <div class="article-heading">
+          <div>
+            <p class="text-warning">Article & News</p>
+            <h3>Get every single Article and News</h3>
+          </div>
+          <button type="button" class="btn btn-readmore">Read more</button>
+        </div>
+        <div class="cards-article">
+          <div>
+            <img
+              class="img-fluid"
+              src="images/articles/how_to_use_digitalization.png"
+              alt="how_to_use_digitalization"
+            />
+            <p>Business</p>
+            <h4>How to use digitalization in the classroom</h4>
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Modi
+              totam molestiae aspernatur.
+            </p>
+          </div>
+          <div>
+            <img
+              class="img-fluid"
+              src="images/articles/implement_chatgpt.png"
+              alt="implement_chatgpt"
+            />
+            <p>Business</p>
+            <h4>How to implement ChatGPT in your projects</h4>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo
+              sequi dolore corporis.
+            </p>
+          </div>
+          <div>
+            <img
+              class="img-fluid"
+              src="images/articles/the_guide_to_support.png"
+              alt="the_guide_to_support"
+            />
+            <p>Business</p>
+            <h4>The guide to support modern CSS</h4>
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iste
+              impedit nam quisquam!
+            </p>
+          </div>
+        </div>
+      </section>
+@{
+	var selection = Umbraco.Content(Guid.Parse("18ba41a6-d9d7-4e7a-b8ca-15626dd86dd8"))
+    .ChildrenOfType("newsItemPage")
+    .Where(x => x.IsVisible())
+    .OrderByDescending(x => x.CreateDate);
+}
+<ul>
+	@foreach (var item in selection)
+	{
+		<li>
+			<a href="@item.Url()">@item.Name()</a>
+		</li>
+	}
+</ul>
+
