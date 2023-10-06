@@ -24,40 +24,36 @@
 
 }
 <section class="news">
-        <div class="article-heading">
-          <div>
-            <p class="text-warning">Article & News</p>
-            <h3>Get every single Article and News</h3>
-          </div>
-          <a type="button" href="/news" class="btn btn-readmore">Read more</a>
+    <div class="article-heading">
+        <div>
+        <p class="text-warning">Article & News</p>
+        <h3>Get every single Article and News</h3>
         </div>
-
- 
+        <a type="button" href="/news" class="btn btn-readmore">Read more</a>
+    </div>
     <div class="news-cards">
-          
+        @if (pagedItems != null){
+	        foreach (var item in pagedItems!)
+	        {
+	            var category = item.Value("newsCategory");
+	            var url = item.Url();
+	            var image = item.Value<IPublishedContent>("newsImage");
+                var title = item.Name();
+                var preamble = item.Value("newsPreamble");
 
-    @if (pagedItems != null){
-	    @foreach (var item in pagedItems!)
-	    {
-	        var category = item.Value("newsCategory");
-	        var url = item.Url();
-	        var image = item.Value<IPublishedContent>("newsImage");
-            var title = item.Name();
-            var preamble = item.Value("newsPreamble");
-
-		    <a href="@url">
-              <img class="img-fluid" src="@image?.Url()" alt="how_to_use_digitalization"/>
-              <p>@category</p>
-              <h4>@title</h4>
-              <p>@preamble</p>
-            </a>
-	    }
-    }
+		        <a href="@url">
+                  <img class="img-fluid" src="@image?.Url()" alt="how_to_use_digitalization"/>
+                  <p>@category</p>
+                  <h4>@title</h4>
+                  <p>@preamble</p>
+                </a>
+	         }
+           }
 
         <nav aria-label="navigation" class="pagination">
-        <ul class="pagination">
-        @if(pageNumber > 1)
-        {
+            <ul class="pagination">
+            @if(pageNumber > 1)
+            {
                 <li class="page-item">
                     <a class="page-link" href="?page=@(pageNumber-1)" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
@@ -85,7 +81,7 @@
                 </li>
             }
            
-          </ul>
+            </ul>
         </nav>
     </div>
-      </section>
+</section>

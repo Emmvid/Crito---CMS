@@ -31,47 +31,47 @@
 
   <div class="main-content">
       <article class="article">
-        <h2>@Model.Name</h2>
-        <small>
-          @Model.CreateDate.ToString("MMM dd, yyyy")
-          <i class="fa-solid fa-circle fa-2xs" style="color: #f9d783"></i>
-            @Model.Value("newsCategory")
-          <i class="fa-solid fa-circle fa-2xs" style="color: #f9d783"></i>
-          @Model.CreatorName(Userservice)
-        </small>
-        <image
-          src="@image.Url()"
-          alt="@Model.Name"
-          class="article-image"
-        ></image>
-        <p>
-         @Model.Value("newsContent")</p>
-        <div class="tags"> 
-        @foreach(var tag in Model.Value<IEnumerable<string>>("newsTags")){
-        <span> @tag / </span>
-        }
+            <h2>@Model.Name</h2>
+            <small>
+              @Model.CreateDate.ToString("MMM dd, yyyy")
+              <i class="fa-solid fa-circle fa-2xs" style="color: #f9d783"></i>
+                @Model.Value("newsCategory")
+              <i class="fa-solid fa-circle fa-2xs" style="color: #f9d783"></i>
+              @Model.CreatorName(Userservice)
+            </small>
+            <image
+              src="@image.Url()"
+              alt="@Model.Name"
+              class="article-image"
+            ></image>
+            <p>
+             @Model.Value("newsContent")</p>
+            <div class="tags"> 
+            @foreach(var tag in Model.Value<IEnumerable<string>>("newsTags")){
+            <span> @tag / </span>
+            }
         </article>
         <div class="sidebar">
-      <div class="recent">
-        <h4 class="text-center">Recent posts</h4>
-        <ul>
-          <li >How to blow through capital at an incredible rate<span class="list">14 jan 2020</span></li>
-          <li >Design studios that everyone know about?<span class="list">32 dec 2022</span></li>
-          <li >How did we get 1M-visitors in 30 days without anything<span class="list">15 july 2023</span></li>
-          <li>Figma on Figma: How we built our Website design system<span class="list">22 aug 2021</span></li>
-        </ul>
-      </div>
-      <div class="categories">
-      <h4 class="text-center"> Categories</h4>
-      <ul>
-        <li>Business <small> 34 posts</small></li>
-        <li>Economy <small> 12 posts</small></li>
-        <li>Tech <small> 50 posts</small></li>
-        <li>Consulting <small> 5 posts</small></li>
-      </ul>
-      </div>
-    </div>
+            <div class="recent">
+                <h4 class="text-center">Recent posts</h4>
+                <ul>
+                    <li >How to blow through capital at an incredible rate<span class="list">14 jan 2020</span></li>
+                    <li >Design studios that everyone know about?<span class="list">32 dec 2022</span></li>
+                    <li >How did we get 1M-visitors in 30 days without anything<span class="list">15 july 2023</span></li>
+                    <li>Figma on Figma: How we built our Website design system<span class="list">22 aug 2021</span></li>
+                </ul>
+            </div>
+            <div class="categories">
+                <h4 class="text-center"> Categories</h4>
+                  <ul>
+                    <li>Business <small> 34 posts</small></li>
+                    <li>Economy <small> 12 posts</small></li>
+                    <li>Tech <small> 50 posts</small></li>
+                    <li>Consulting <small> 5 posts</small></li>
+                  </ul>
+            </div>
         </div>
+  </div>
         
 
 <section class="news">
@@ -85,58 +85,56 @@
 
  
     <div class="news-cards">
-          
+        @if (pagedItems != null){
+	        foreach (var item in pagedItems!)
+	        {
+	            var category = item.Value("newsCategory");
+	            var url = item.Url();
+	            var latestArticleImage = item.Value<IPublishedContent>("newsImage");
+                var title = item.Name();
+                var preamble = item.Value("newsPreamble");
 
-    @if (pagedItems != null){
-	    @foreach (var item in pagedItems!)
-	    {
-	        var category = item.Value("newsCategory");
-	        var url = item.Url();
-	        var latestArticleImage = item.Value<IPublishedContent>("newsImage");
-            var title = item.Name();
-            var preamble = item.Value("newsPreamble");
+		        <a href="@url">
+                    <img class="img-fluid" src="@latestArticleImage?.Url()" alt="how_to_use_digitalization"/>
+                    <p>@category</p>
+                    <h4>@title</h4>
+                    <p>@preamble</p>
+                </a>
+	        }
+        }
 
-		    <a href="@url">
-              <img class="img-fluid" src="@latestArticleImage?.Url()" alt="how_to_use_digitalization"/>
-              <p>@category</p>
-              <h4>@title</h4>
-              <p>@preamble</p>
-            </a>
-	    }
-    }
-
-        <nav aria-label="navigation" class="pagination">
-        <ul class="pagination">
-        @if(pageNumber > 1)
-        {
-                <li class="page-item">
-                    <a class="page-link" href="?page=@(pageNumber-1)" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                </li>
-            }
-            @for(int i= 1; i <= Math.Ceiling((decimal)totalItems / itemsPerPage); i++)
-            {
-                if( i == pageNumber)
-                {
-                    <li class="page-item"><a class="page-link" href="#">@i</a></li>
-                }
-                else
-                {
-                    <li class="page-item"><a class="page-link" href="?page=@i">@i</a></li>
-                }
-            }
-            @if(pageNumber < Math.Ceiling((decimal) totalItems / itemsPerPage)){
-                <li class="page-item">
-                    <a class="page-link" href="?page=@(pageNumber+1)" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </li>
-            }
+            <nav aria-label="navigation" class="pagination">
+                <ul class="pagination">
+                     @if(pageNumber > 1)
+                        {
+                        <li class="page-item">
+                            <a class="page-link" href="?page=@(pageNumber-1)" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+                        }
+                        @for(int i= 1; i <= Math.Ceiling((decimal)totalItems / itemsPerPage); i++)
+                        {
+                        if( i == pageNumber)
+                        {
+                            <li class="page-item"><a class="page-link" href="#">@i</a></li>
+                        }
+                        else
+                        {
+                            <li class="page-item"><a class="page-link" href="?page=@i">@i</a></li>
+                        }
+                        }
+                        @if(pageNumber < Math.Ceiling((decimal) totalItems / itemsPerPage)){
+                        <li class="page-item">
+                            <a class="page-link" href="?page=@(pageNumber+1)" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                        }
            
-          </ul>
-        </nav>
+                </ul>
+            </nav>
     </div>
-      </section>
+</section>

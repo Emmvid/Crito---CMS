@@ -14,51 +14,42 @@
 
 
 
- <nav class="navbar navbar-expand-md">
-        <div class="container">
-        
-       <a href="#"><img src="~/images/logos/logotype.svg" alt="logo" /></a>
-          <div
-            class=" flex-column align-items-start ml-lg-2 ml-0"
-       
-          >
-            <ul class="navbar-nav flex-row mb-md-1 mt-md-0 mb-3 mt-2">
-              <li class="nav-item">
-                <i class="fa fa-phone" aria-hidden="true"> </i> +46 12 34 56 44
-              </li>
-              <li class="nav-item">
-                <i class="fa fa-envelope" aria-hidden="true"> </i>
-                info@crito.com
-              </li>
-              <li class="nav-item">
-                <i class="fa fa-map-marker" aria-hidden="true"></i> Olof Palmes
-                plats 1, 413 04 Gothenburg
-              </li>
-              <li><i class="fa fa-twitter" aria-hidden="true"></i></li>
-              <li><i class="fa fa-facebook" aria-hidden="true"></i></li>
-              <li><i class="fa fa-linkedin" aria-hidden="true"></i></li>
-              <li><i class="fa fa-instagram" aria-hidden="true"></i></li>
-            </ul>
+    <nav class="navbar navbar-expand-md">
+            <div class="container">
+               <a href="/home"><img src="~/images/logos/logotype.svg" alt="logo" /></a>
+                  <div class=" flex-column align-items-start ml-lg-2 ml-0">
+                        <ul class="navbar-nav flex-row mb-md-1 mt-md-0 mb-3 mt-2">
+                          <li class="nav-item">
+                            <i class="fa fa-phone" aria-hidden="true"> </i> +46 12 34 56 44
+                          </li>
+                          <li class="nav-item">
+                            <i class="fa fa-envelope" aria-hidden="true"> </i>
+                            info@crito.com
+                          </li>
+                          <li class="nav-item">
+                            <i class="fa fa-map-marker" aria-hidden="true"></i> Olof Palmes
+                            plats 1, 413 04 Gothenburg
+                          </li>
+                          <li><i class="fa fa-twitter" aria-hidden="true"></i></li>
+                          <li><i class="fa fa-facebook" aria-hidden="true"></i></li>
+                          <li><i class="fa fa-linkedin" aria-hidden="true"></i></li>
+                          <li><i class="fa fa-instagram" aria-hidden="true"></i></li>
+                        </ul>
             
-                  <ul class="navbar-nav">
-            <li class="nav-item" href="@site.Url()"> @site.Name</li>
-              @if (selection?.Length > 0)
-{
-
-        
-        @foreach (var item in selection)
-        {
-            <li class="@(item.IsAncestorOrSelf(Model) ? "current" : null) nav-item">
-                <a class="nav-link" href="@item.Url(PublishedUrlProvider)">@item.Name</a>
-            </li>
-        }
+                        <ul class="navbar-nav">
+                            <a class="nav-item" href="@site.Url()"> @site.Name</a>
+                              @if (selection?.Length > 0)
+                             {
+                                @foreach (var item in selection)
+                                {
+                                    <li class="@(item.IsAncestorOrSelf(Model) ? "current" : null) nav-item">
+                                        <a class="nav-link" href="@item.Url(PublishedUrlProvider)">@item.Name</a>
+                                    </li>
+                                }
   
-}
-  </ul>
-              <button type="button" class="btn btn-custom">
-                Login <i class="fa fa-arrow-right" aria-hidden="true"></i>
-              </button>
-           
-          </div>
-        </div>
-      </nav>
+                             }
+                        </ul>
+                        <button type="button" class="btn btn-custom"> Login <i class="fa fa-arrow-right" aria-hidden="true"></i> </button>
+                   </div>
+            </div>
+    </nav>
